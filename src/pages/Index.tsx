@@ -5,6 +5,7 @@ import ClientLogos from '@/components/ClientLogos';
 import PortfolioSection from '@/components/PortfolioSection';
 import PortfolioSectionMobile from '@/components/PortfolioSectionMobile';
 import PortfolioWorksSection from '@/components/PortfolioWorksSection';
+import ReviewsSection from '@/components/ReviewsSection';
 import CircularCTA from '@/components/CircularCTA';
 
 const Index = () => {
@@ -26,6 +27,9 @@ const Index = () => {
         
         {/* Portfolio works section */}
         <PortfolioWorksSection />
+        
+        {/* Reviews section */}
+        <ReviewsSection />
       </main>
 
       {/* Fixed client logos and CTA appear on content sections only */}
