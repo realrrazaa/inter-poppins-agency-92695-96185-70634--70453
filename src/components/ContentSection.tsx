@@ -26,7 +26,7 @@ const ContentSection = ({ connectorVariant, showClientLogos = false }: ContentSe
   ];
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center px-6 py-20 relative">
+    <section data-section="content" className="min-h-screen flex flex-col items-center justify-center px-6 py-20 relative">
       
       <div className="text-center mb-3 max-w-3xl">
         <h1 

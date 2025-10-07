@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 import { ChevronDown, ExternalLink } from 'lucide-react';
 
 const portfolioItems = [
@@ -17,12 +18,43 @@ const Portfolio = () => {
   const [selectedCategory, setSelectedCategory] = useState('restaurant');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [showCursor, setShowCursor] = useState(false);
+  const portfolioRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setCursorPosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      <main className="pt-32 pb-16 px-8 md:px-16">
+      {/* Cursor Following "check out." Button */}
+      <div
+        className={`fixed z-50 flex items-center justify-center rounded-full pointer-events-none transition-all duration-300 ease-out ${
+          showCursor && hoveredItem !== null ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+        }`}
+        style={{
+          width: '100px',
+          height: '100px',
+          backgroundColor: '#93BD60',
+          left: `${cursorPosition.x}px`,
+          top: `${cursorPosition.y}px`,
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
+        <span className="font-poppins text-white text-[14px] font-semibold text-center leading-tight">
+          check<br />out.
+        </span>
+      </div>
+      
+      <main ref={portfolioRef} className="pt-32 pb-16 px-8 md:px-16">
         <div className="max-w-[1400px] mx-auto">
           {/* Header Section */}
           <div className="relative mb-20">
@@ -92,8 +124,14 @@ const Portfolio = () => {
                 <a 
                   href={item.link}
                   className="relative block mb-4 group"
-                  onMouseEnter={() => setHoveredItem(item.id)}
-                  onMouseLeave={() => setHoveredItem(null)}
+                  onMouseEnter={() => {
+                    setHoveredItem(item.id);
+                    setShowCursor(true);
+                  }}
+                  onMouseLeave={() => {
+                    setHoveredItem(null);
+                    setShowCursor(false);
+                  }}
                 >
                   <div 
                     className="w-[280px] h-[233px] bg-gradient-to-br from-gray-200 to-gray-300 rounded-[30px] relative overflow-hidden"
@@ -107,21 +145,6 @@ const Portfolio = () => {
                     {/* Arrow Icon - Top Right */}
                     <div className="absolute top-4 right-4 w-6 h-6 bg-black rounded-full flex items-center justify-center">
                       <ExternalLink size={14} className="text-white" />
-                    </div>
-
-                    {/* Hover "check out." Button */}
-                    <div
-                      className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${
-                        hoveredItem === item.id
-                          ? 'opacity-100 scale-100'
-                          : 'opacity-0 scale-50 pointer-events-none'
-                      }`}
-                    >
-                      <div className="w-[100px] h-[100px] rounded-full bg-[hsl(var(--green-cta))] flex items-center justify-center">
-                        <span className="font-poppins text-white text-[14px] font-medium text-center leading-tight">
-                          check<br />out.
-                        </span>
-                      </div>
                     </div>
                   </div>
                 </a>
@@ -140,6 +163,8 @@ const Portfolio = () => {
           </div>
         </div>
       </main>
+      
+      <Footer />
     </div>
   );
 };

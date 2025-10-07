@@ -7,6 +7,7 @@ import PortfolioSectionMobile from '@/components/PortfolioSectionMobile';
 import PortfolioWorksSection from '@/components/PortfolioWorksSection';
 import ReviewsSection from '@/components/ReviewsSection';
 import CircularCTA from '@/components/CircularCTA';
+import PortfolioSeeMoreCTA from '@/components/PortfolioSeeMoreCTA';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -36,6 +37,7 @@ const Index = () => {
       {/* Fixed client logos and CTA appear on content sections only */}
       <ClientLogos />
       <CircularCTA />
+      <PortfolioSeeMoreCTA />
       
       {/* Footer */}
       <Footer />

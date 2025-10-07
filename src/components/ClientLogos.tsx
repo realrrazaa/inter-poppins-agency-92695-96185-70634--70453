@@ -27,13 +27,17 @@ const ClientLogos = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       
-      // Find PortfolioWorksSection to hide before it
-      const portfolioWorksSection = document.querySelector('[data-section="portfolio-works"]');
-      const portfolioWorksSectionTop = portfolioWorksSection?.getBoundingClientRect().top || 0;
-      const portfolioWorksScrollY = scrollY + portfolioWorksSectionTop;
+      // Find all ContentSections
+      const contentSections = document.querySelectorAll('[data-section="content"]');
+      const lastContentSection = contentSections[contentSections.length - 1];
       
-      // Show after scrolling 50px but hide before PortfolioWorksSection
-      setIsVisible(scrollY >= 50 && portfolioWorksSectionTop > windowHeight * 0.3);
+      if (lastContentSection) {
+        const lastSectionRect = lastContentSection.getBoundingClientRect();
+        const lastSectionBottom = scrollY + lastSectionRect.bottom;
+        
+        // Show after scrolling 50px but hide after scrolling past the last ContentSection
+        setIsVisible(scrollY >= 50 && scrollY < lastSectionBottom - windowHeight * 0.5);
+      }
     };
 
     handleScroll();
@@ -46,7 +50,7 @@ const ClientLogos = () => {
   const centerY = 120;
 
   return (
-    <div className={`fixed right-8 bottom-8 z-40 transition-opacity duration-500 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+    <div className={`fixed right-8 bottom-8 z-40 transition-opacity duration-500 ease-in-out hidden md:block ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
       <div className="relative" style={{ width: '240px', height: '240px' }}>
         {/* Centered "previous clients" text */}
         <div 

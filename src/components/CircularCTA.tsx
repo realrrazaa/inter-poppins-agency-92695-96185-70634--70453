@@ -11,17 +11,17 @@ const CircularCTA = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       
-      // Find PortfolioWorksSection and ReviewsSection to hide on those sections
-      const portfolioWorksSection = document.querySelector('[data-section="portfolio-works"]');
-      const reviewsSection = document.querySelector('[data-section="reviews"]');
+      // Find all ContentSections
+      const contentSections = document.querySelectorAll('[data-section="content"]');
+      const lastContentSection = contentSections[contentSections.length - 1];
       
-      const portfolioWorksTop = portfolioWorksSection?.getBoundingClientRect().top || Infinity;
-      const reviewsTop = reviewsSection?.getBoundingClientRect().top || Infinity;
-      
-      // Show only on ContentSections (after hero, before portfolio works)
-      const isInContentSections = scrollY >= 50 && portfolioWorksTop > windowHeight * 0.3;
-      
-      setIsScrolledPastHero(isInContentSections);
+      if (lastContentSection) {
+        const lastSectionRect = lastContentSection.getBoundingClientRect();
+        const lastSectionBottom = scrollY + lastSectionRect.bottom;
+        
+        // Show only within ContentSections
+        setIsScrolledPastHero(scrollY >= 50 && scrollY < lastSectionBottom - windowHeight * 0.5);
+      }
     };
 
     handleScroll();
