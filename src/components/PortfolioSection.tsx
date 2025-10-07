@@ -64,13 +64,11 @@ const PortfolioSection = () => {
     };
   }, [portfolioItems.length]);
 
-  if (!isVisible) return null;
-
   return (
     <aside 
       id="portfolio" 
       ref={sectionRef}
-      className={`fixed right-0 top-0 h-screen md:flex items-center pr-0 z-30 pointer-events-none hidden transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+      className={`fixed right-0 top-0 h-screen md:flex items-center pr-0 z-30 pointer-events-none hidden transition-opacity duration-500 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0'}`}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}

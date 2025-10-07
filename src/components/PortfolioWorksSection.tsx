@@ -67,6 +67,7 @@ const PortfolioWorksSection = () => {
   return (
     <section 
       ref={sectionRef}
+      data-section="portfolio-works"
       className="py-20 px-6 bg-background relative overflow-hidden"
     >
       {/* Decorative side character - desktop only, aligned with logistics image */}

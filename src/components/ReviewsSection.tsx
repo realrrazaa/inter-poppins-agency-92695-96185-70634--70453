@@ -69,7 +69,7 @@ const ReviewsSection = () => {
   }, []);
 
   return (
-    <section className="py-20 px-6 bg-background relative overflow-hidden">
+    <section data-section="reviews" className="py-20 px-6 bg-background relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Top illustration */}
         <div className="flex justify-center -mt-4 mb-8">

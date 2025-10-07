@@ -8,8 +8,20 @@ const CircularCTA = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show after scrolling past 50px (when content sections start)
-      setIsScrolledPastHero(window.scrollY >= 50);
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      
+      // Find PortfolioWorksSection and ReviewsSection to hide on those sections
+      const portfolioWorksSection = document.querySelector('[data-section="portfolio-works"]');
+      const reviewsSection = document.querySelector('[data-section="reviews"]');
+      
+      const portfolioWorksTop = portfolioWorksSection?.getBoundingClientRect().top || Infinity;
+      const reviewsTop = reviewsSection?.getBoundingClientRect().top || Infinity;
+      
+      // Show only on ContentSections (after hero, before portfolio works)
+      const isInContentSections = scrollY >= 50 && portfolioWorksTop > windowHeight * 0.3;
+      
+      setIsScrolledPastHero(isInContentSections);
     };
 
     handleScroll();

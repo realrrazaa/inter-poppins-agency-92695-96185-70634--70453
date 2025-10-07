@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import heroIllustration from '@/assets/hero-illustration.png';
 import ConnectorIllustration from './ConnectorIllustration';
-import CircularCTA from './CircularCTA';
 
 interface Tag {
   label: string;
@@ -28,9 +27,8 @@ const ContentSection = ({ connectorVariant, showClientLogos = false }: ContentSe
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-6 py-20 relative">
-      <CircularCTA />
       
-      <div className="text-center mb-8 max-w-3xl">
+      <div className="text-center mb-3 max-w-3xl">
         <h1 
           className="font-inter text-[24px] font-bold mb-2 relative inline-block"
           style={{ color: '#000000' }}
@@ -59,7 +57,7 @@ const ContentSection = ({ connectorVariant, showClientLogos = false }: ContentSe
         </p>
       </div>
 
-      <div className="relative w-full max-w-4xl flex items-center justify-center my-12">
+      <div className="relative w-full max-w-4xl flex items-center justify-center my-6">
         <img 
           src={heroIllustration} 
           alt="Team working illustration" 

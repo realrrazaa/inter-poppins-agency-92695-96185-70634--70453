@@ -25,14 +25,15 @@ const ClientLogos = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const documentHeight = document.documentElement.scrollHeight;
       const windowHeight = window.innerHeight;
       
-      // Calculate the start of the last section (approximately last 100vh)
-      const lastSectionStart = documentHeight - (windowHeight * 1.5);
+      // Find PortfolioWorksSection to hide before it
+      const portfolioWorksSection = document.querySelector('[data-section="portfolio-works"]');
+      const portfolioWorksSectionTop = portfolioWorksSection?.getBoundingClientRect().top || 0;
+      const portfolioWorksScrollY = scrollY + portfolioWorksSectionTop;
       
-      // Show after scrolling 50px but hide before reaching the last section
-      setIsVisible(scrollY >= 50 && scrollY < lastSectionStart);
+      // Show after scrolling 50px but hide before PortfolioWorksSection
+      setIsVisible(scrollY >= 50 && portfolioWorksSectionTop > windowHeight * 0.3);
     };
 
     handleScroll();
@@ -44,10 +45,8 @@ const ClientLogos = () => {
   const centerX = 120;
   const centerY = 120;
 
-  if (!isVisible) return null;
-
   return (
-    <div className={`fixed right-8 bottom-8 z-40 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`fixed right-8 bottom-8 z-40 transition-opacity duration-500 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
       <div className="relative" style={{ width: '240px', height: '240px' }}>
         {/* Centered "previous clients" text */}
         <div 
